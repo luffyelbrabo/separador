@@ -1,0 +1,170 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizador de Config DT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        textarea {
+            width: calc(100% - 40px);
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        button {
+            width: calc(100% - 40px);
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .output-box {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .output-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .output-item p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .output-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .output-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <style type="text/css" id="operaUserStyle"></style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Organizador de Config DT</h1>
+        <textarea id="inputText" placeholder="Insira o texto aqui"></textarea>
+        <button onclick="organizarTexto()">Organizar</button>
+        <div class="output-box" id="output"></div>
+    </div>
+
+    <script>
+        function organizarTexto() {
+            const inputText = document.getElementById("inputText").value;
+            const organizedText = extrairCampos(inputText);
+            const output = organizarCampos(organizedText);
+            document.getElementById("output").innerHTML = output;
+        }
+
+        function extrairCampos(texto) {
+            const regex = /"name"\s*:\s*"([^"]+)"|"mode"\s*:\s*"([^"]+)"|"payload"\s*:\s*"([^"]+)"|"v2ray"\s*:\s*"([^"]+)"|"proxy"\s*:\s*{"host"\s*:\s*"([^"]+)","port"\s*:\s*(\d+)}|"server"\s*:\s*{"host"\s*:\s*"([^"]+)"|"port"\s*:\s*(\d+)}|"icon"\s*:\s*"([^"]+)"|"dns1"\s*:\s*"([^"]+)"|"dns2"\s*:\s*"([^"]+)"/g;
+            const organizedText = {};
+            let match;
+
+            while ((match = regex.exec(texto)) !== null) {
+                if (match[1]) organizedText.name = match[1];
+                else if (match[2]) organizedText.mode = match[2];
+                else if (match[3]) organizedText.payload = match[3];
+                else if (match[4]) organizedText.v2ray = match[4];
+                else if (match[5]) organizedText.proxy = { host: match[5], port: match[6] };
+                else if (match[7]) organizedText.server = { host: match[7], port: match[8] };
+                else if (match[9]) organizedText.icon = match[9];
+                else if (match[10]) organizedText.dns1 = match[10];
+                else if (match[11]) organizedText.dns2 = match[11];
+            }
+
+            return organizedText;
+        }
+
+        function organizarCampos(organizedText) {
+            let output = "";
+
+            if (organizedText.name) {
+                output += `<div class="output-item"><p><strong>Nome:</strong><br>${organizedText.name}</p></div>`;
+            }
+            if (organizedText.mode) {
+                output += `<div class="output-item"><p><strong>Modo de Conexão:</strong><br>${organizedText.mode}</p></div>`;
+            }
+            if (organizedText.payload) {
+                output += `<div class="output-item"><p><strong>Payload:</strong><br>${organizedText.payload}</p></div>`;
+            }
+            if (organizedText.v2ray) {
+                output += `<div class="output-item"><p><strong>Código V2ray:</strong><br>${organizedText.v2ray}</p></div>`;
+            }
+            if (organizedText.proxy && organizedText.proxy.host) {
+                output += `<div class="output-item"><p><strong>Proxy:</strong><br>${organizedText.proxy.host}</p></div>`;
+            }
+            if (organizedText.proxy && organizedText.proxy.port) {
+                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.proxy.port}</p></div>`;
+            }
+            if (organizedText.server && organizedText.server.host) {
+                output += `<div class="output-item"><p><strong>Servidor:</strong><br>${organizedText.server.host}</p></div>`;
+            }
+            if (organizedText.server && organizedText.server.port) {
+                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.server.port}</p></div>`;
+            }
+            if (organizedText.icon) {
+                output += `<div class="output-item"><p><strong>Ícone:</strong><br><a href="${organizedText.icon}" target="_blank">${organizedText.icon}</a></p></div>`;
+            }
+            if (organizedText.dns1) {
+                output += `<div class="output-item"><p><strong>Dns1:</strong><br>${organizedText.dns1}</p></div>`;
+            }
+            if (organizedText.dns2) {
+                output += `<div class="output-item"><p><strong>Dns2:</strong><br>${organizedText.dns2}</p></div>`;
+            }
+
+            return output;
+        }
+
+    </script>
+</body>
+
+</html>
