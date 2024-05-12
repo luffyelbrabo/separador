@@ -128,51 +128,42 @@
             let output = "";
 
             if (organizedText.name) {
-                output += `<div class="output-item"><p><strong>Nome:</strong><br>${organizedText.name}</p><button onclick="copyToClipboard('${organizedText.name}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Nome:</strong><br>${organizedText.name}</p></div>`;
             }
             if (organizedText.mode) {
-                output += `<div class="output-item"><p><strong>Modo de Conexão:</strong><br>${organizedText.mode}</p><button onclick="copyToClipboard('${organizedText.mode}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Modo de Conexão:</strong><br>${organizedText.mode}</p></div>`;
             }
             if (organizedText.payload) {
-                output += `<div class="output-item"><p><strong>Payload:</strong><br>${organizedText.payload}</p><button onclick="copyToClipboard('${organizedText.payload}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Payload:</strong><br>${organizedText.payload}</p></div>`;
             }
             if (organizedText.v2ray) {
-                output += `<div class="output-item"><p><strong>Código V2ray:</strong><br>${organizedText.v2ray}</p><button onclick="copyToClipboard('${organizedText.v2ray}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Código V2ray:</strong><br>${organizedText.v2ray}</p></div>`;
             }
             if (organizedText.proxy && organizedText.proxy.host) {
-                output += `<div class="output-item"><p><strong>Proxy:</strong><br>${organizedText.proxy.host}</p><button onclick="copyToClipboard('${organizedText.proxy.host}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Proxy:</strong><br>${organizedText.proxy.host}</p></div>`;
             }
             if (organizedText.proxy && organizedText.proxy.port) {
-                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.proxy.port}</p><button onclick="copyToClipboard('${organizedText.proxy.port}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.proxy.port}</p></div>`;
             }
             if (organizedText.server && organizedText.server.host) {
-                output += `<div class="output-item"><p><strong>Servidor:</strong><br>${organizedText.server.host}</p><button onclick="copyToClipboard('${organizedText.server.host}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Servidor:</strong><br>${organizedText.server.host}</p></div>`;
             }
             if (organizedText.server && organizedText.server.port) {
-                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.server.port}</p><button onclick="copyToClipboard('${organizedText.server.port}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Porta:</strong><br>${organizedText.server.port}</p></div>`;
             }
             if (organizedText.icon) {
-                output += `<div class="output-item"><p><strong>Ícone:</strong><br><a href="${organizedText.icon}" target="_blank">${organizedText.icon}</a></p><button onclick="copyToClipboard('${organizedText.icon}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Ícone:</strong><br><a href="${organizedText.icon}" target="_blank">${organizedText.icon}</a></p></div>`;
             }
             if (organizedText.dns1) {
-                output += `<div class="output-item"><p><strong>Dns1:</strong><br>${organizedText.dns1}</p><button onclick="copyToClipboard('${organizedText.dns1}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Dns1:</strong><br>${organizedText.dns1}</p></div>`;
             }
             if (organizedText.dns2) {
-                output += `<div class="output-item"><p><strong>Dns2:</strong><br>${organizedText.dns2}</p><button onclick="copyToClipboard('${organizedText.dns2}')">Copiar</button></div>`;
+                output += `<div class="output-item"><p><strong>Dns2:</strong><br>${organizedText.dns2}</p></div>`;
             }
 
             return output;
         }
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text)
-                .then(() => {
-                    alert("Texto copiado para a área de transferência!");
-                })
-                .catch(err => {
-                    console.error('Erro ao copiar: ', err);
-                });
-        }
     </script>
 </body>
 
